@@ -43,13 +43,13 @@ function App() {
     {
       sno:3,
       title:"go to coading",
-      description:"got to market and get your things"
+      description:"got to big bazar"
     }
   ]);
   return (
     <>
 
-      <Header  title="to do list" searchBar={false} />
+      <Header  title="new list do list" searchBar={false} />
       <AddTodo addTodo={addTodo}/>
       <Todos todos={todos} onDelete={onDelete}/> 
       <Footer/>
