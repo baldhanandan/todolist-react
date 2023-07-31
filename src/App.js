@@ -1,58 +1,74 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './myComponents/Header';
 import {Footer} from './myComponents/Footer';
-import {Todos} from './myComponents/Todos';
 import React, { useState } from 'react';
-import { AddTodo } from './myComponents/AddTodo';
+import { Playerform } from './myComponents/Playerform';
+import {Score} from './myComponents/Score';
+import {Startgame} from './myComponents/Startgame';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
 
 function App() {
   const onDelete = (todo)=>{
     console.log("I'm Delete",todo);
-    //let index=todos.indexOf(todo);
-    //todos.splice(index,1);
-    setodos(todos.filter((e)=>{
+    setscoreCard(scoreCard.filter((e)=>{
       return e!==todo;
     }
 
     ))
     
   }
-  const addTodo =(title,desc)=>{
-    const sno=todos[todos.length-1].sno+1;
-    const mytodo={
+  const addScore =(card)=>{
+    const sno=scoreCard[scoreCard.length-1].sno+1;
+    const myscore={
       sno:sno,
-      title:title,
-      description:desc
-    }
-    setodos([...todos,mytodo])
-    console.log("i m adding title and desc",mytodo)
-  }
+      player1:card.player1,
+      player2:card.player2,
+      winner:card.winner,
+      winBy:card.winBy,
 
-  const [todos, setodos] = useState([
+    }
+    setscoreCard([...scoreCard,myscore])
+    console.log("i m adding title and desc",myscore)
+  }
+  
+
+  const [scoreCard, setscoreCard] = useState([
     {
       sno:1,
-      title:"go to market",
-      description:"got to market and get your things"
+      player1:"ram",
+      player2:"shyam",
+      winner:"ram",
+      winBy:4
     },
     {
       sno:2,
-      title:"do home work",
-      description:"got to market and get your things"
+      player1:"ram2",
+      player2:"shyam2",
+      winner:"ram2",
+      winBy:5
     },
-    {
-      sno:3,
-      title:"go to coading",
-      description:"got to big bazar"
-    }
+    
   ]);
   return (
     <>
+     <BrowserRouter>
+      <Header  title="Counter Game"/>
+      <Routes>
+          <Route path="/pscore" element={<Score scoreCard={scoreCard} onDelete={onDelete}/>} />
+          <Route path="/" element={<Playerform />}/>
+          <Route path="/sgame" element={<Startgame addScore={addScore}/>}/>
+      </Routes>
 
-      <Header  title="new list do list" searchBar={false} />
-      <AddTodo addTodo={addTodo}/>
-      <Todos todos={todos} onDelete={onDelete}/> 
-      <Footer/>
+      </BrowserRouter>
+
+      
+     
+      
     </>
   );
 }
